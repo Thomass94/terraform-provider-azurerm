@@ -401,9 +401,8 @@ func resourceArmLinuxVirtualMachineScaleSetCreate(d *schema.ResourceData, meta i
 		},
 	}
 
-	// useExtensionsBeta := meta.(*clients.Client).Features.VirtualMachineScaleSet.UseExtensionsBeta
-	// forced for dev testing
-	useExtensionsBeta := true
+	useExtensionsBeta := meta.(*clients.Client).Features.VirtualMachineScaleSet.UseExtensionsBeta
+
 	if useExtensionsBeta {
 		if vmExtensionsRaw, ok := d.GetOk("vm_extension"); ok {
 			virtualMachineProfile.ExtensionProfile = expandVirtualMachineScaleSetExtensions(vmExtensionsRaw.([]interface{}))
@@ -744,9 +743,8 @@ func resourceArmLinuxVirtualMachineScaleSetUpdate(d *schema.ResourceData, meta i
 		update.Sku = sku
 	}
 
-	// useExtensionsBeta := meta.(*clients.Client).Features.VirtualMachineScaleSet.UseExtensionsBeta
-	// forced for dev testing
-	useExtensionsBeta := true
+	useExtensionsBeta := meta.(*clients.Client).Features.VirtualMachineScaleSet.UseExtensionsBeta
+
 	if useExtensionsBeta {
 		if d.HasChange("vm_extension") {
 			extensionProfile := expandVirtualMachineScaleSetExtensions(d.Get("vm_extension").([]interface{}))
@@ -932,9 +930,8 @@ func resourceArmLinuxVirtualMachineScaleSetRead(d *schema.ResourceData, meta int
 			}
 		}
 
-		//useExtensionsBeta := meta.(*clients.Client).Features.VirtualMachineScaleSet.UseExtensionsBeta
-		// forced for dev testing
-		useExtensionsBeta := true
+		useExtensionsBeta := meta.(*clients.Client).Features.VirtualMachineScaleSet.UseExtensionsBeta
+
 		if useExtensionsBeta {
 			if profile.ExtensionProfile != nil {
 				if extensionProfile, err := flattenVirtualMachineScaleSetExtensions(profile.ExtensionProfile, d); err != nil {
